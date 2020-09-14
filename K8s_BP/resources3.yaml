@@ -12,7 +12,7 @@ spec:
       app: {{ APP_NAME }}
       manager: cloudify
       tier: app
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
