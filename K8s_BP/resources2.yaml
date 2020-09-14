@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ APP_NAME }}-app"
+  labels:
+    app: {{ APP_NAME }}
+    manager: cloudify
+    tier: app
+spec:
+  selector:
+    matchLabels:
+      app: {{ APP_NAME }}
+      manager: cloudify
+      tier: app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ APP_NAME }}
+        manager: cloudify
+        tier: app
+    spec:
+      containers:
+      - name: {{ CONTAINER_NAME }}
+        image: {{ CONTAINER_IMAGE }}
+        ports:
+        - containerPort: {{ PORT }}
+          name: http-server
+        resources:
+          limits:
+            cpu: 1
+            memory: 128Mi
+          requests:
+            cpu: 1
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ APP_NAME }}-svc"
+  labels:
+    app: {{ APP_NAME }}
+    manager: cloudify
+    tier: app
+spec:
+  selector:
+    app: {{ APP_NAME }}
+    manager: cloudify
+    tier: app
+  ports:
+  - port: 80
+    targetPort: {{ PORT }}
+    protocol: TCP
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "cloudify-hello-world_2-app"
+  labels:
+    app: cloudify-hello-world_2
+    manager: cloudify
+    tier: app
+spec:
+  selector:
+    matchLabels:
+      app: cloudify-hello-world_2
+      manager: cloudify
+      tier: app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cloudify-hello-world_2
+        manager: cloudify
+        tier: app
+    spec:
+      containers:
+      - name: {{ CONTAINER_NAME }}
+        image: {{ CONTAINER_IMAGE }}
+        ports:
+        - containerPort: {{ PORT }}
+          name: http-server
+        resources:
+          limits:
+            cpu: 1
+            memory: 128Mi
+          requests:
+            cpu: 1
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "cloudify-hello-world_2-svc"
+  labels:
+    app: cloudify-hello-world_2
+    manager: cloudify
+    tier: app
+spec:
+  selector:
+    app: cloudify-hello-world_2
+    manager: cloudify
+    tier: app
+  ports:
+  - port: 80
+    targetPort: {{ PORT }}
+    protocol: TCP
+  type: LoadBalancer
