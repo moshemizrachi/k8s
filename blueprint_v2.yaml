@@ -8,15 +8,16 @@ inputs:
 
   kubernetes_master_endpoint:
     type: string
+    default: https://34.69.229.185
 
   kubernetes_client_config:
-    default:
-      configuration:
-        api_options:
-          host: { get_input: kubernetes_master_endpoint }
-          api_key: { get_secret: kubernetes_token }
-          debug: false
-          verify_ssl: false
+    authentication:
+      gcp_service_account: { get_secret: gcp_credentials }
+    configuration:
+      api_options:
+        host: { get_input: kubernetes_master_endpoint }
+        verify_ssl: false
+        debug: false
 
   app_name:
     description: Prefix to use for application service / deployment names
