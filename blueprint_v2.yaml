@@ -16,8 +16,8 @@ inputs:
     configuration:
       api_options:
         host: { get_input: kubernetes_master_endpoint }
-        verify_ssl: false
-        debug: false
+      verify_ssl: false
+      debug: false
 
   app_name:
     description: Prefix to use for application service / deployment names
