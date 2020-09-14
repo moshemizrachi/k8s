@@ -8,7 +8,7 @@ inputs:
 
   kubernetes_master_endpoint:
     type: string
-    default: https://34.69.229.185
+    default: 34.69.229.185
 
   kubernetes_client_config:
     authentication:
