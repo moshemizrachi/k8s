@@ -56,7 +56,23 @@ node_templates:
           CONTAINER_NAME: { get_input: app_name }
           CONTAINER_IMAGE: { get_input: container }
 
-  
+  hello-world_2:
+    type: cloudify.kubernetes.resources.FileDefinedResource
+    properties:
+      client_config: { get_input: kubernetes_client_config }
+      validate_resource_status: { get_input: validate_status }
+      file:
+        resource_path: resources3.yaml
+        template_variables:
+          APP_NAME: { get_input: app_name_2 }
+          PORT: { get_input: container_port }
+          CONTAINER_NAME: { get_input: app_name_2 }
+          CONTAINER_IMAGE: { get_input: container }
+
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: hello-world
+
 outputs:
 
   service:
