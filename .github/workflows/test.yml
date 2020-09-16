@@ -28,6 +28,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Create Cloudify
-        run:
+        runs:
           using: "docker"
           image: "docker://isaaccfy/cfy-ci:latest"
+          entrypoint: "cfyci"
