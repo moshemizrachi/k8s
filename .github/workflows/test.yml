@@ -27,8 +27,11 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Create Cloudify
-        runs:
-          using: "docker"
-          image: "docker://isaaccfy/cfy-ci:latest"
-          entrypoint: "cfyci"
+      - name: Download Cloudify CLI
+        id: download_cli
+        run: curl -O https://repository.cloudifysource.org/cloudify/latest/5.0.5/ga-release/cloudify-cli_5.0.5.1~ga_amd64.deb
+        
+      - name: Install Cloudify CLI
+        id: install_cli
+        run: sudo dpkg -i cloudify-cli_5.0.5.1~ga_amd64.deb
+        
