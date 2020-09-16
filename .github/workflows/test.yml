@@ -34,4 +34,16 @@ jobs:
       - name: Install Cloudify CLI
         id: install_cli
         run: sudo dpkg -i cloudify-cli_5.0.5.1~ga_amd64.deb
+      
+      - name: Setup Cloudify
+        id: set_up_cloudify
+        run: | sudo dpkg -i cloudify-cli_5.0.5.1~ga_amd64.deb
+      
+      - name: Run a multi-line script
+        run: |
+          cfy profiles use 54.176.36.209 -u admin -p admin -t default_tenant,
+          cfy blueprints upload https://github.com/moshemizrachi/k8s/raw/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2",
+          cfy blueprints upload https://github.com/moshemizrachi/k8s/raw/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2",
+         # cfy deployments update -b k8_v2 K8s_deployment .
+
         
