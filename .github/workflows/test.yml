@@ -35,6 +35,11 @@ jobs:
         id: install_cli
         run: sudo dpkg -i cloudify-cli_5.0.5.1~ga_amd64.deb
       
+      - name: Setup Cloudify
+        id: set_up_cloudify
+        run: sudo cfy profiles use 54.176.36.209 -u admin -p admin -t default_tenant,
+          
+      
       
           
 
