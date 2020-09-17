@@ -6,19 +6,11 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
-    
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches: [ master ]  
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      
-      ## Runs a set of commands using the runners shell
       - name: Download Cloudify CLI
         id: download_cli
         run: curl -O https://repository.cloudifysource.org/cloudify/latest/5.0.5/ga-release/cloudify-cli_5.0.5.1~ga_amd64.deb
@@ -27,6 +19,16 @@ jobs:
         id: install_cli
         run: sudo dpkg -i cloudify-cli_5.0.5.1~ga_amd64.deb
       
+      - name: Add_delay
+        id: delay
+        run: sudo sleep 60
+         
+      - name: Download updated repo
+        id: new_repo 
+        run: |
+          sudo curl -O https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip
+          sudo unzip K8s_BP.zip
+     
       - name: Setup Cloudify
         id: set_up_cloudify
         run: |
@@ -34,9 +36,6 @@ jobs:
           sudo cfy blueprints upload https://github.com/moshemizrachi/k8s/raw/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2"
           sudo cfy deployments update -b k8_v2 K8s_deployment
           
-          
-      
-      
           
 
         
