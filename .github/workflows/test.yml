@@ -11,6 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        
       - name: Download Cloudify CLI
         id: download_cli
         run: curl -O https://repository.cloudifysource.org/cloudify/latest/5.0.5/ga-release/cloudify-cli_5.0.5.1~ga_amd64.deb
