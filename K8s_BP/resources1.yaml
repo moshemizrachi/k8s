@@ -48,7 +48,8 @@ spec:
     manager: cloudify
     tier: app
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: {{ PORT }}
     protocol: TCP
   type: LoadBalancer

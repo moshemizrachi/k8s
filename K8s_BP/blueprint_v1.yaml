@@ -45,7 +45,7 @@ node_templates:
       client_config: { get_input: kubernetes_client_config }
       validate_resource_status: { get_input: validate_status }
       file:
-        resource_path: resources.yaml
+        resource_path: resources1.yaml
         template_variables:
           APP_NAME: { get_input: app_name }
           PORT: { get_input: container_port }
