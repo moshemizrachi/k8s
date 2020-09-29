@@ -24,6 +24,10 @@ inputs:
     description: Prefix to use for application service / deployment names
     default: cloudify-hello-world
 
+  app_name_2:
+    description: Prefix to use for application service / deployment names
+    default: cloudify-hello-world-2
+
   namespace:
     default: default
 
@@ -48,11 +52,26 @@ node_templates:
       client_config: { get_input: kubernetes_client_config }
       validate_resource_status: { get_input: validate_status }
       file:
-        resource_path: resources1.yaml
+        resource_path: resources2.yaml
         template_variables:
           APP_NAME: { get_input: app_name }
           PORT: { get_input: container_port }
           CONTAINER_NAME: { get_input: app_name }
           CONTAINER_IMAGE: { get_input: container }
+      options:
+        namespace: { get_input: namespace }
+
+
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: hello-world_2
+
+  hello-world_2:
+    type: cloudify.kubernetes.resources.FileDefinedResource
+    properties:
+      client_config: { get_input: kubernetes_client_config }
+      validate_resource_status: { get_input: validate_status }
+      file:
+        resource_path: resources3.yaml
       options:
         namespace: { get_input: namespace }
