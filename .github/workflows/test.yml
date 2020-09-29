@@ -31,8 +31,8 @@ jobs:
           sudo curl -O https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip
           sudo unzip K8s_BP.zip
           
-      - name: Update K8s_deployment
-        id: testing BP on Test ENV
+      - name: Testing BP on Lab ENV
+        id: testing_BP_test_env
         run: |
           sudo cfy profiles use 54.176.36.209 -u test -p 12345 -t test
           sudo cfy blueprints upload https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2"
