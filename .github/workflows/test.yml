@@ -30,12 +30,22 @@ jobs:
         run: |
           sudo curl -O https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip
           sudo unzip K8s_BP.zip
-     
+          
+      - name: Update K8s_deployment
+        id: testing BP on Test ENV
+        run: |
+          sudo cfy profiles use 54.176.36.209 -u test -p 12345 -t test
+          sudo cfy blueprints upload https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2"
+          sudo cfy deployments create -b "k8_v2"  k8-test -i namespace=test
+          sudo cfy executions start install -d "k8-test"
+          sudo cfy profiles delete 54.176.36.209
+       
       - name: Update K8s_deployment
         id: update_deployment
         run: |
           sudo cfy profiles use 54.176.36.209 -u admin -p admin -t default_tenant
           sudo cfy blueprints upload https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2"
+          sudo cfy deployments update -b k8_v2 K8s_deployment
           sudo cfy deployments update -b k8_v2 K8s_deployment
           
           
