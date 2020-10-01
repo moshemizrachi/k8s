@@ -46,7 +46,7 @@ jobs:
           sudo cfy profiles use 54.176.36.209 -u admin -p admin -t default_tenant
           sudo cfy blueprints upload https://raw.githubusercontent.com/moshemizrachi/k8s/master/K8s_BP.zip -n blueprint_v2.yaml -b "k8_v2"
           sudo cfy deployments update -b k8_v2 K8s_deployment
-          sudo cfy deployments update -b k8_v2 K8s_deployment
+          
           
           
 
